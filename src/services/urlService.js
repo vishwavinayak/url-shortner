@@ -4,11 +4,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 // Get the current directory
-const _filename = fileURLToPath(import.meta, url);
+const _filename = fileURLToPath(import.meta.url);
 const _dirname = path.dirname(_filename)
 
 // Location of JSON storage
-const filepath = path.join(_dirname, "../storage/urls.json");
+const filePath = path.join(_dirname, "../storage/urls.json");
 
 // Shorten URL 
 
@@ -26,4 +26,10 @@ export function shortenUrl(originalUrl) {
   );
 
   return shortCode;
+}
+export function getOriginalUrl(shortCode) {
+  const data = JSON.parse(
+    fs.readFileSync(filePath, "utf-8")
+  );
+  return data[shortCode] || null;
 }
